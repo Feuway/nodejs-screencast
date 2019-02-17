@@ -1,4 +1,4 @@
-var util = require('util');
+var util = require("util");
 
 var obj = {
   a: 5,
@@ -9,4 +9,4 @@ var obj = {
 };
 obj.self = obj;
 
-console.log( util.inspect(obj) );
+console.log(util.inspect(obj));

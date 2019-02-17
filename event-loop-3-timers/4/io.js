@@ -1,14 +1,17 @@
 var fs = require('fs');
 
-fs.open(__filename, "r", function(err, file) {
+fs.open(__filename, "r", function (err, file) {
   console.log("IO!");
 });
 
-setImmediate(function() {
-  console.log("immediate");
+setTimeout(() => {
+  console.log('setTimeout 0');
+}, 0);
+
+process.nextTick(function () {
+  console.log("nextTick");
 });
 
-
-process.nextTick(function() {
-  console.log("nextTick");
+setImmediate(function () {
+  console.log("immediate");
 });

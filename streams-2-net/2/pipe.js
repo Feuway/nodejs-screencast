@@ -1,7 +1,7 @@
 var http = require('http');
 var fs = require('fs');
 
-new http.Server(function(req, res) {
+new http.Server(function (req, res) {
   // res instanceof http.ServerResponse < stream.Writable
 
   if (req.url == '/big.html') {
@@ -23,15 +23,14 @@ function sendFile(file, res) {
 
       file.removeListener('readable', write);
 
-      res.once('drain', function() { // подождать
+      res.once('drain', function () { // подождать
         file.on('readable', write);
         write();
       });
     }
   }
-  
-  file.on('end', function() {
+
+  file.on('end', function () {
     res.end();
   });
-
 }

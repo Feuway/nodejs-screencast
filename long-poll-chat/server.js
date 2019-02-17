@@ -3,7 +3,7 @@ var fs = require('fs');
 var url = require('url');
 var chat = require('./chat');
 
-http.createServer(function(req, res) {
+http.createServer(function (req, res) {
   var urlParsed = url.parse(req.url);
 
   switch (urlParsed.pathname) {
@@ -19,15 +19,17 @@ http.createServer(function(req, res) {
       var body = '';
 
       req
-        .on('readable', function() {
-          body += req.read();
+        .on('readable', function () {
+          const data = req.read();
+          console.log('readable', data)
+          if (data) body += data;
 
           if (body.length > 1e4) {
             res.statusCode = 413;
             res.end("Your message is too big for my little chat");
           }
         })
-        .on('end', function() {
+        .on('end', function () {
           try {
             body = JSON.parse(body);
           } catch (e) {
@@ -54,12 +56,12 @@ http.createServer(function(req, res) {
 function sendFile(fileName, res) {
   var fileStream = fs.createReadStream(fileName);
   fileStream
-    .on('error', function() {
+    .on('error', function () {
       res.statusCode = 500;
       res.end("Server error");
     })
     .pipe(res)
-    .on('close', function() {
+    .on('close', function () {
       fileStream.destroy();
     });
 }

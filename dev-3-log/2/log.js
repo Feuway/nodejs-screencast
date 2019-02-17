@@ -1,6 +1,6 @@
 var winston = require('winston');
 
-module.exports = function(module) {
+module.exports = function (module) {
   return makeLogger(module.filename);
 };
 
@@ -17,14 +17,19 @@ function makeLogger(path) {
         level: 'info'
       }),
 
-      new winston.transports.File({ filename: 'debug.log', level: 'debug' })
+      new winston.transports.File({
+        filename: 'debug.log',
+        level: 'debug'
+      })
     ];
 
-    return new winston.Logger({ transports: transports });
+    return new winston.createLogger({
+      transports: transports
+    });
 
   } else {
 
-    return new winston.Logger({
+    return new winston.createLogger({
       transports: []
     });
 

@@ -3,13 +3,14 @@
 var http = require('http');
 var url = require('url');
 
-var server = new http.Server(function(req, res) {
-
+var server = new http.Server(function (req, res) {
   var urlParsed = url.parse(req.url, true);
+
+  debugger;
 
   if (urlParsed.pathname == '/echo' && urlParsed.query.message) {
     res.setHeader('Cache-control', 'no-cache,no-store,must-revalidate');
-    res.end( urlParsed.query.message );
+    res.end(urlParsed.query.message);
   } else {
     res.statusCode = 404; // Not Found
     res.end("Page not found");
